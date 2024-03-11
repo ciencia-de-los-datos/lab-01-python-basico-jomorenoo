@@ -385,7 +385,6 @@ def pregunta_12():
         'D': 136,
         'E': 324
     }
-
     """
     data = leer_data_csv()
     letra = {}
