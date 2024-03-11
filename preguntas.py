@@ -390,10 +390,10 @@ def pregunta_12():
     letra = {}
     for row in data:
         value = row[4].split(",")
-        dicv = dict((rw.split(":")[0], int(rw.split(":")[1])) for rw in values)
+        dicv = dict((rw.split(":")[0], int(rw.split(":")[1])) for rw in value)
         if row[0] in letra.keys():
-            letra[row[0]] += sum(dicv.values())
+            letra[row[0]] += sum(dicv.value())
         else:
-            letra[row[0]] = sum(dicv.values())
-    resultadordenado = dict(sorted(letras.items()))
+            letra[row[0]] = sum(dicv.value())
+    resultadordenado = dict(sorted(letra.items()))
     return resultadordenado
