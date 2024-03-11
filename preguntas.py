@@ -392,8 +392,8 @@ def pregunta_12():
         value = row[4].split(",")
         dicv = dict((rw.split(":")[0], int(rw.split(":")[1])) for rw in value)
         if row[0] in letra.keys():
-            letra[row[0]] += sum(dicv.value())
+            letra[row[0]] += sum(dicv.values())
         else:
-            letra[row[0]] = sum(dicv.value())
+            letra[row[0]] = sum(dicv.values())
     resultadordenado = dict(sorted(letra.items()))
     return resultadordenado
