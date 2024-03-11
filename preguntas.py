@@ -12,6 +12,21 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
+"importo csv, para leer los datos que me entregan"
+import csv
+
+
+def leer_data_csv():
+    with open("data.csv", "r") as file:
+        data = list(csv.reader(file, delimiter="\t"))
+        # for row in data:
+        #     print(row)
+    return data
+
+
+# data=leer_data_csv()
+# print(data)
+
 
 def pregunta_01():
     """
@@ -21,7 +36,12 @@ def pregunta_01():
     214
 
     """
-    return
+    data = leer_data_csv()
+    suma = 0
+
+    for row in data:
+        suma += int(row[1])
+    return suma
 
 
 def pregunta_02():
@@ -39,7 +59,17 @@ def pregunta_02():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    letra_cantidad = {}
+
+    for i in data:
+        letra = i[0]
+        if letra in letra_cantidad:
+            letra_cantidad[letra] += 1
+        else:
+            letra_cantidad[letra] = 1
+    resultado = sorted(letra_cantidad.items(), key=lambda x: x[0])
+    return resultado
 
 
 def pregunta_03():
@@ -57,7 +87,15 @@ def pregunta_03():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    suma3 = {}
+    for i in data:
+        if i[0] in suma3.keys():
+            suma3[i[0]] += int(i[1])
+        else:
+            suma3[i[0]] = int(i[1])
+    sortedsum3 = sorted(suma3.items())
+    return sortedsum3
 
 
 def pregunta_04():
@@ -82,7 +120,16 @@ def pregunta_04():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    mes = {}
+    for i in data:
+        meses = i[2].split("-")[1]
+        if meses in mes:
+            mes[meses] += 1
+        else:
+            mes[meses] = 1
+    cantmes = sorted(mes.items())
+    return cantmes
 
 
 def pregunta_05():
@@ -100,7 +147,22 @@ def pregunta_05():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    lista = {}
+    for i in data:
+        word = i[0]
+        value = int(i[1])
+        if word in lista:
+            lista[word].append(value)
+        else:
+            lista[word] = [value]
+    resultado = []
+    for words, values in lista.items():
+        max_value = max(values)
+        min_value = min(values)
+        resultado.append((words, max_value, min_value))
+        result_sort = sorted(list(resultado))
+    return result_sort
 
 
 def pregunta_06():
@@ -125,7 +187,25 @@ def pregunta_06():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    valor_w = {}
+    for i in data:
+        dicod = i[4]
+        dic = {}
+        for z in dicod.split(","):
+            clave, valor = z.split(":")
+            dic[clave] = int(valor)
+        for clave, valor in dic.items():
+            if clave in valor_w:
+                valor_w[clave] = (
+                    min(valor_w[clave][0], valor),
+                    max(valor_w[clave][1], valor),
+                )
+            else:
+                valor_w[clave] = (valor, valor)
+    resultado = [(clave, valores[0], valores[1]) for clave, valores in valor_w.items()]
+    resultord = sorted(list(resultado))
+    return resultord
 
 
 def pregunta_07():
@@ -149,7 +229,17 @@ def pregunta_07():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    wv = {}
+    for i in data:
+        vcs = int(i[1])
+        l = i[0]
+        if vcs in wv:
+            wv[vcs].append(l)
+        else:
+            wv[vcs] = [l]
+    resultd = sorted(wv.items())
+    return resultd
 
 
 def pregunta_08():
@@ -174,7 +264,19 @@ def pregunta_08():
     ]
 
     """
-    return
+    data = leer_data_csv()
+    wordv = {}
+    for row in data:
+        vcd = int(row[1])
+        let = row[0]
+        if vcd in wordv:
+            wordv[vcd].append(let)
+        else:
+            wordv[vcd] = [let]
+    results = sorted(
+        [(valor, sorted(set(let))) for valor, let in wordv.items()], key=lambda x: x[0]
+    )
+    return results
 
 
 def pregunta_09():
@@ -197,7 +299,17 @@ def pregunta_09():
     }
 
     """
-    return
+    data = leer_data_csv()
+    wv = {}
+    for row in data:
+        for i in row[4].split(","):
+            clave = i.split(":")[0]
+            if clave in wv.keys():
+                wv[clave] += 1
+            else:
+                wv[clave] = 1
+    registros = dict(sorted(wv.items()))
+    return registros
 
 
 def pregunta_10():
@@ -218,7 +330,15 @@ def pregunta_10():
 
 
     """
-    return
+    data = leer_data_csv()
+    listatu = []
+    for i in data:
+        let1 = i[0]
+        colum4 = len(i[3].split(","))
+        colum5 = len(i[4].split(","))
+        tupl = (let1, colum4, colum5)
+        listatu.append(tupl)
+    return listatu
 
 
 def pregunta_11():
@@ -239,7 +359,17 @@ def pregunta_11():
 
 
     """
-    return
+    data = leer_data_csv()
+    suma = {}
+    for row in data:
+        letc4 = row[3].split(",")
+        for i in letc4:
+            if i in suma.keys():
+                suma[i] += int(row[1])
+            else:
+                suma[i] = int(row[1])
+    sumaletord = dict(sorted(suma.items()))
+    return sumaletord
 
 
 def pregunta_12():
@@ -257,4 +387,14 @@ def pregunta_12():
     }
 
     """
-    return
+    data = leer_data_csv()
+    letra = {}
+    for row in data:
+        value = row[4].split(",")
+        dicv = dict((rw.split(":")[0], int(rw.split(":")[1])) for rw in values)
+        if row[0] in letra.keys():
+            letra[row[0]] += sum(dicv.values())
+        else:
+            letra[row[0]] = sum(dicv.values())
+    resultadordenado = dict(sorted(letras.items()))
+    return resultadordenado
